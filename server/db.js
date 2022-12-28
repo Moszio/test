@@ -1,11 +1,15 @@
-const Pool = require('pg').Pool
+const { Pool } = require('pg')
 
-const pool = new Pool({
+const connection = new Pool({
   user: 'postgres',
   password: '123',
-  host: 'localhost',
+  host: '127.0.0.1',
   port: 5432,
   database: 'postgres',
 })
 
-module.exports = pool
+module.exports = connection
+
+// const connectdb = async () => {
+//   await connection.connect()
+// }

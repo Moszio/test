@@ -1,15 +1,17 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const pool = require('./db')
+const connection = require('./db')
 
 //ROUTES//
 app.use(cors())
 app.use(express.json())
-app.get('/api', async (req, res) => {
+app.get('/test', async (req, res) => {
   try {
-    const { id } = req.params
-    const todo = await pool.query('SELECT * FROM public.question_one_shifts')
+    // const { id } = req.params
+    await connection.connect()
+    const data = await connection.query('SELECT * FROM question_one_shifts')
+    res.json(data.rows)
   } catch (error) {
     console.log(error.message)
   }
