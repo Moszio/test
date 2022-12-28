@@ -10,7 +10,9 @@ app.get('/test', async (req, res) => {
   try {
     // const { id } = req.params
     await connection.connect()
-    const data = await connection.query('SELECT * FROM question_one_shifts')
+    const data = await connection.query(
+      'SELECT * FROM question_one_shifts INNER JOIN facilities ON question_one_shifts.facility_id = facilities.facility_id'
+    )
     res.json(data.rows)
   } catch (error) {
     console.log(error.message)
