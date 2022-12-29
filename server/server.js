@@ -22,3 +22,33 @@ app.get('/test', async (req, res) => {
 app.listen(5000, () => {
   console.log('Server started on port 5000')
 })
+
+const arr = [
+  { start: '01:00', end: '04:00' },
+  { start: '05:00', end: '06:00' },
+  { start: '07:00', end: '11:00' },
+  { start: '12:30', end: '18:00' },
+]
+const overlapping = (a, b) => {
+  const getMinutes = (s) => {
+    const p = s.split(':').map(Number)
+    return p[0] * 60 + p[1]
+  }
+  return (
+    getMinutes(a.end) > getMinutes(b.start) &&
+    getMinutes(b.end) > getMinutes(a.start)
+  )
+}
+const isOverlapping = (arr) => {
+  let i, j
+  for (i = 0; i < arr.length - 1; i++) {
+    for (j = i + 1; j < arr.length; j++) {
+      if (overlapping(arr[i], arr[j])) {
+        return true
+      }
+    }
+  }
+  return false
+}
+console.log(isOverlapping(arr))
+console.log(isOverlapping(arr))
